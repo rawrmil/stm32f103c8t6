@@ -12,9 +12,10 @@ T - industrial temp range (-40C, +85C)
 
 ## Requirments
 ```txt
-gcc-arm-none-eabi
-gdb-arm-none-eabi
-stlink-tools
+arm-none-eabi-gcc
+arm-none-eabi-gdb
+arm-none-eabi-newlib
+openocd
 ```
 
 ## Links
