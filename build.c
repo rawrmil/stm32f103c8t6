@@ -14,8 +14,8 @@ int main(int argc, char** argv) {
 
 	cmd_append(&cmd,
 			CC,
-			"main.c", "startup_stm32f103xb.s", "system_stm32f1xx.c",
-			"-T", "STM32F102X6_FLASH.ld",
+			"main.c", "platform/startup_stm32f103xb.s", "platform/system_stm32f1xx.c",
+			"-T", "platform/STM32F102X6_FLASH.ld",
 			"-o", "out/binary.elf",
 			"-I/usr/arm-none-eabi/include", "-ICMSIS/Core/Include", "-ICMSIS/STM32F1/Include",
 			"-mcpu=cortex-m3", "-mthumb", "-nostdlib", "-DSTM32F103x6");
