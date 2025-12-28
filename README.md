@@ -33,6 +33,12 @@ T - industrial temp range (-40C, +85C)
 `./CMSIS/Core/Include` - STM32CubeF1 -> ./Drivers/CMSIS/Core/Include
 `./CMSIS/STM32F1/Include` - STM32CubeF1 -> ./Drivers/CMSIS/Core/Include
 
+## Wierd problems
+'Unknown memory region' issue:
+```sh
+st-flash --connect-under-reset write out/binary.bin 0x08000000
+```
+
 ## Links
 STM32 naming conventions:
 - https://www.compilenrun.com/docs/iot/stm32/stm32-fundamentals/stm32-naming-convention/
