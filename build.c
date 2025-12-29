@@ -21,10 +21,13 @@ int main(int argc, char** argv) {
 	cmd_append(&cmd, CC, nob_temp_sprintf("%s/main.c", argv[1]));
 	nob_temp_reset();
 	cmd_append(&cmd,
-			"platform/startup_stm32f103xb.s", "platform/system_stm32f1xx.c",
-			"-T", "platform/STM32F102X6_FLASH.ld",
+			"STM32CubeF1/Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/gcc/startup_stm32f103x6.s",
+			"STM32CubeF1/Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/system_stm32f1xx.c",
+			"-T", "./STM32CubeF1/Drivers/CMSIS/Device/ST/STM32F1xx/Source/Templates/gcc/linker/STM32F102X6_FLASH.ld",
 			"-o", "out/binary.elf",
-			"-I/usr/arm-none-eabi/include", "-ICMSIS/Core/Include", "-ICMSIS/STM32F1/Include",
+			"-I/usr/arm-none-eabi/include",
+			"-ISTM32CubeF1/Drivers/CMSIS/Core/Include",
+			"-ISTM32CubeF1/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
 			"-mcpu=cortex-m3", "-mthumb", "-nostdlib", "-DSTM32F103x6");
 
 	if (!cmd_run(&cmd)) { return 1; }

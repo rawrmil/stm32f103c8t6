@@ -2,6 +2,7 @@
 
 ## Building
 ```sh
+git submodule update --init --recursive
 gcc build.c -o build
 ./build <example>
 # Examples:
