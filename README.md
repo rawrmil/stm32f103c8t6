@@ -8,8 +8,10 @@ gcc build.c -o build
 # Examples:
 # 1_blink - led blinking example
 # 2_blink_timer - led blinking with system timer example
+
+# 'compile_commmands.json' generation example:
+bear -- ./build 4_hal_blink
 ```
-NOTE: While flashing using build hold reset button, then flash without holding it
 
 ## Requirments
 ```txt

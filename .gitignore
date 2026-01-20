@@ -1,3 +1,5 @@
 build
 build.old
 out/
+.cache/
+compile_commands.json
