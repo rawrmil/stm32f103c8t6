@@ -23,26 +23,40 @@ int main(int argc, char** argv) {
 	if (!nob_mkdir_if_not_exists("out")) { return 1; }
 
 	cmd_append(&cmd, CC, nob_temp_sprintf("%s/main.c", argv[1]));
-	//cmd_append(&cmd, CC, nob_temp_sprintf("-I%s/", argv[1]));
-	nob_temp_reset();
 	cmd_append(&cmd,
 			STM32_CMSIS_TEMPLATES"/gcc/startup_stm32f103x6.s",
 			STM32_CMSIS_TEMPLATES"/system_stm32f1xx.c",
 			"-T", STM32_CMSIS_TEMPLATES"/gcc/linker/STM32F102X6_FLASH.ld",
 			"-o", "out/binary.elf",
+			"-I.",
+			nob_temp_sprintf("-I./%s", argv[1]),
 			"-I/usr/arm-none-eabi/include",
 			"-I"STM32_CMSIS"/Include",
 			"-I"STM32_CMSIS"/Core/Include",
 			"-I"STM32_CMSIS"/Device/ST/STM32F1xx/Include",
 			"-mcpu=cortex-m3", "-mthumb", "-specs=nosys.specs", "-DSTM32F103x6");
+	nob_temp_reset();
 
 	if (!strcmp(argv[1], "4_hal_blink")) {
-		cmd_append(&cmd, "-I./STM32CubeF1/Projects/STM3210C_EVAL/Examples/GPIO/GPIO_IOToggle/Inc"); // for 'stm32f1xx_hal_conf.h'
-		cmd_append(&cmd, "-I"STM32_HAL "/Inc");
-		cmd_append(&cmd, "-I"STM32_HAL "/Inc/Legacy");
-		cmd_append(&cmd, STM32_HAL "/Src/stm32f1xx_hal.c");
-		cmd_append(&cmd, STM32_HAL "/Src/stm32f1xx_hal_cortex.c");
-		cmd_append(&cmd, STM32_HAL "/Src/stm32f1xx_hal_gpio.c");
+		cmd_append(&cmd, "-I./STM32CubeF1/Projects/STM3210C_EVAL/Examples/GPIO/GPIO_IOToggle/Inc");
+		cmd_append(&cmd, "-I"STM32_HAL"/Inc");
+		cmd_append(&cmd, "-I"STM32_HAL"/Inc/Legacy");
+		cmd_append(&cmd, STM32_HAL"/Src/stm32f1xx_hal.c");
+		cmd_append(&cmd, STM32_HAL"/Src/stm32f1xx_hal_cortex.c");
+		cmd_append(&cmd, STM32_HAL"/Src/stm32f1xx_hal_gpio.c");
+	}
+	if (!strcmp(argv[1], "5_uart_to_term")) {
+		cmd_append(&cmd, "-I./STM32CubeF1/Projects/STM3210C_EVAL/Examples/GPIO/GPIO_IOToggle/Inc");
+		cmd_append(&cmd, "-I"STM32_HAL"/Inc");
+		cmd_append(&cmd, "-I"STM32_HAL"/Inc/Legacy");
+		cmd_append(&cmd, STM32_HAL"/Src/stm32f1xx_hal.c");
+		cmd_append(&cmd, STM32_HAL"/Src/stm32f1xx_hal_cortex.c");
+		cmd_append(&cmd, STM32_HAL"/Src/stm32f1xx_hal_gpio.c");
+		cmd_append(&cmd, STM32_HAL"/Src/stm32f1xx_hal_rcc.c");
+		cmd_append(&cmd, STM32_HAL"/Src/stm32f1xx_hal_dma.c");
+		cmd_append(&cmd, STM32_HAL"/Src/stm32f1xx_hal_uart.c");
+		cmd_append(&cmd, "-DHAL_DMA_MODULE_ENABLED");
+		cmd_append(&cmd, "-DHAL_UART_MODULE_ENABLED");
 	}
 
 	if (!cmd_run(&cmd)) { return 1; }
